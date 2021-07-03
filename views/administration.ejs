@@ -1,0 +1,42 @@
+<%- include('./partials/headDashboard') %>
+  <body>
+    <section class="grid dashboard">
+      <div class="item logo">Mind Education</div>
+      <div class="item nav">
+        <div class="search">
+          <img id="btnSearch" alt="Buscar" src="../images/search.png"/>
+          <input type="text" id="search-text" placeholder="Search..."/>
+        </div>
+        <ul class="acess_login">
+          <% if (typeof user !== "undefined") { %>
+            <li class="nav-item">
+              <li id="name_user">Olá, <%= user.name %></li>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/users/logout">Logout</a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+      <div class="item content">
+        <h3 id="title">Cadastros</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">E-mail</th>
+              <th scope="col">Data de cadastro</th>
+              <th scope="col" colspan="2"></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      <div class="item footer">
+        <h5 class="item footer">Copyrights ©</h5>
+        <h5 class="item footer footer-colored"> Mind Education</h5>
+      </div>
+    </section>
+  </body>
