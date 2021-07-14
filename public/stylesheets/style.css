@@ -24,7 +24,7 @@ a {
 .login,
 .register {
   width: 565px;
-  height: 766px;
+  height: 700px;
   left: 437px;
   top: 129px;
   color: black;
@@ -39,6 +39,145 @@ a {
   align-items: center;
 }
 
+.index_login {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 0;
+}
+
 .dashboard {
   background-color: #ffffff;
+}
+
+#buttonSubmit {
+  width: 300px;
+  height: 70px;
+  left: 765px;
+  top: 1048px;
+
+  background: #7f63f4;
+  border-radius: 7.93673px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 19.0481px;
+  line-height: 26px;
+  text-align: center;
+  color: #ffffff;
+  margin-top: 30px;
+}
+
+#textTitle_index {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 33.8355px;
+  line-height: 46px;
+  text-align: center;
+  margin: 5px 0 10px;
+}
+
+.label_email_index,
+.label_password_index {
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 17px;
+  opacity: 0.5;
+}
+
+.label_password_index {
+  margin-top: 20px;
+}
+
+.input_email_index,
+.input_password_index {
+  width: 250px;
+  height: 40px;
+  border-width: 1px;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: solid;
+  border-left-style: none;
+  margin: 10px 0 10px 0;
+  font-weight: 600;
+  font-size: 19.0481px;
+  line-height: 26px;
+  color: #03014c;
+  opacity: 0.5;
+}
+
+.text_index {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 308px;
+}
+
+.firstText_index {
+  font-size: 45.6204px;
+  color: #03014c;
+  margin: 95px 0 0 0;
+}
+
+.secondText_index {
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #03014c;
+  opacity: 0.5;
+}
+
+.label_name_register,
+.label_email_register,
+.label_password_register,
+.label_passwordConfirm_register {
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 17px;
+  opacity: 0.5;
+}
+
+.label_email_register,
+.label_password_register,
+.label_passwordConfirm_register {
+  margin-top: 20px;
+}
+
+.input_name_register,
+.input_email_register,
+.input_password_register,
+.input_passwordConfirm_register {
+  width: 250px;
+  height: 40px;
+  border-width: 1px;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: solid;
+  border-left-style: none;
+  margin: 10px 0 10px 0;
+  font-weight: 600;
+  font-size: 19.0481px;
+  line-height: 26px;
+  color: #03014c;
+  opacity: 0.5;
+}
+
+.register_new {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 0;
+}
+
+.text_register {
+  font-size: 45px;
+  line-height: 65px;
+  color: #03014c;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 308px;
+  margin: 45px 0 0 0;
 }

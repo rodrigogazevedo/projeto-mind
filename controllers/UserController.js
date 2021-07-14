@@ -1,32 +1,97 @@
 const bcrypt = require('bcrypt');
-const users = require('../data/users');
-const saveData = require('../utils/saveData');
+const dateFormat = require('moment');
+const browserify = require('browserify');
+const { User, Sequelize } = require('../models');
 
 module.exports = {
   create(req, res, next) {
     res.render('register');
   },
 
-  save(req, res, next) {
-    let id = users.length + 1;
+  async save(req, res, next) {
     req.body.password = bcrypt.hashSync(req.body.password, 10);
     req.body.confirm_password = req.body.password;
-    let user = { id, ...req.body };
+    let user = {...req.body};
+    let date = dateFormat().format();
 
-    users.push(user);
+    user.createdAt = date;
+    user.updatedAt = date;
 
-    saveData(users, 'users.js');
+    await User.create(user);
 
     res.render('register', {added: true });
+  },
+
+  async delete(req, res, next) {
+    let id = req.params.id;
+    let user = await User.findByPk(id);
+
+    user.deleted = true;
+
+    await user.save();
+
+    let users = await User.findAll({ 
+      where: {
+        [Sequelize.Op.and] : [
+          {
+            deleted : 'false'
+          },
+          {
+            admin : 'false'
+          }
+        ]
+      },
+    });
+
+    res.render('administration', { users, user: req.session.user, deleted: true });
+  },
+
+  async update(req, res, next) {
+    let id = req.params.id;
+    let user = await User.findByPk(id);
+
+    let {name, email} = req.body;
+
+    let date = dateFormat().format();
+    console.log(date);
+
+    user.updatedAt = date;
+
+    user.name = name;
+    user.email = email;
+    user.deleted = 'false';
+    if(user.password !== null) {
+      let password = bcrypt.hashSync(req.body.password, 10);
+      user.password = password;
+      user.confirm_password = password;
+    }
+
+    await user.save();
+
+    let users = await User.findAll({ 
+      where: {
+        [Sequelize.Op.and] : [
+          {
+            deleted : 'false'
+          },
+          {
+            admin : 'false'
+          }
+        ]
+      },
+    });
+
+    res.render('administration', { users, user: req.session.user, updated: true });
   },
 
   login(req, res, next) {
     res.render('index');
   },
 
-  authenticate(req, res, next) {
+  async authenticate(req, res, next) {
     let { email, password } = req.body;
-    let user = users.find((user) => email == user.email);
+    let user = await User.findOne({ where: { email } });
+    let profile = await User.findByPk(user.id);
 
     if(!user) {
       return res.render('index', {notFound: true });
@@ -36,13 +101,25 @@ module.exports = {
       return res.render('index', { notFound: true });
     }
 
-    req.session.user = { 
-      id: user.id,
-      name: user.name, 
-      email: user.email,
+    delete user.password;
+
+    req.session.user = user;
+
+    //users = module.exports.list();
+
+    if(user.admin == true) {
+      let users = await User.findAll({ 
+        where: {
+          admin : 'false'
+        },
+      });
+
+      res.render('administration', { users, user: req.session.user });
+    } else {
+      res.render('userPage', { user: req.session.user });
     }
 
-    res.render('administration', { user: req.session.user });
+    
   }, 
 
   logout(req, res, next) {

@@ -1,6 +1,6 @@
 const config = {
   username: 'root',
-  password: '123456',
+  password: '12345678',
   database: 'projeto_mind',
   host: 'localhost',
   dialect: 'mysql',

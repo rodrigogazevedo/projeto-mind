@@ -2,14 +2,16 @@
   <body>
     <div class="container">
       <div class="register">
-        <h1>CADASTRO</h1>
-        <form class="register" action="/users/register" method="POST">
-          <label for="input-email">E-mail</label>
-          <input type="email" id="input-email" name="email" placeholder="Youraddress@email.com" required="required" autofocus="autofocus">
-          <label for="input-password">Senha</label>
-          <input type="password" id="input-password" name="password" required="required" autofocus="autofocus">
-          <label for="confirm-password">Confirmar senha</label>
-          <input type="password" id="confirm_password" name="confirm_password" required="required" autofocus="autofocus">
+        <h3 class="text_register">CADASTRO</h3>
+        <form class="register_new" action="/users/register" method="POST">
+          <label for="input-name" class="label_name_register">Nome</label>
+          <input type="name" id="input-name" class="input_name_register" name="name" required="required" autofocus="autofocus">
+          <label for="input-email" class="label_email_register">E-mail</label>
+          <input type="email" id="input-email" class="input_email_register" name="email" placeholder="Youraddress@email.com" required="required" autofocus="autofocus">
+          <label for="input-password" class="label_password_register">Senha</label>
+          <input type="password" id="input-password" class="input_password_register" name="password" required="required" autofocus="autofocus">
+          <label for="confirm-password" class="label_passwordConfirm_register">Confirmar senha</label>
+          <input type="password" id="confirm_password" class="input_passwordConfirm_register" name="confirm_password" required="required" autofocus="autofocus">
           <% if (typeof added !== "undefined") { %>
             <div class="alert-success">
               Usuário cadastrado com sucesso

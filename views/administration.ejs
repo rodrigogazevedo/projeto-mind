@@ -1,42 +1,114 @@
 <%- include('./partials/headDashboard') %>
-  <body>
+  <main class="container">
     <section class="grid dashboard">
-      <div class="item logo">Mind Education</div>
-      <div class="item nav">
-        <div class="search">
-          <img id="btnSearch" alt="Buscar" src="../images/search.png"/>
-          <input type="text" id="search-text" placeholder="Search..."/>
-        </div>
-        <ul class="acess_login">
-          <% if (typeof user !== "undefined") { %>
-            <li class="nav-item">
-              <li id="name_user">Olá, <%= user.name %></li>
+      <%- include('./partials/header'); %>
+      <div class="item sidenav">
+        <h4 id="text_menu">NAVEGAÇÃO</h4>
+        <ul class="menu">
+          <li class="nav-item">
+            <li id="text_list_menu">
+              <img src="/images/dashboard.jpg"/>
+              Dashboard
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/users/logout">Logout</a>
+            <li id="text_list_menu">
+              <img src="/images/funcao2.jpg"/>
+              Função 2
             </li>
-          <% } %>
+            <li id="text_list_menu">
+              <img src="/images/funcao3.jpg"/>
+              Função 3
+            </li>
+            <li id="text_list_menu">
+              <img src="/images/funcao4.jpg"/>
+              Função 4
+            </li>
+          </li>
         </ul>
       </div>
       <div class="item content">
-        <h3 id="title">Cadastros</h3>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nome</th>
-              <th scope="col">E-mail</th>
-              <th scope="col">Data de cadastro</th>
-              <th scope="col" colspan="2"></th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
+        <h3 class="title">Cadastros</h3>
+        <% if (users.length !== 0) { %>
+          <table class="tableUsers">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Data de cadastro</th>
+                <th scope="col">Data da atualização</th>
+                <th scope="col" colspan="2"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% users.forEach(user => { %>
+                <tr id="line-table">
+                  <th scope="row"><%= user.id %> </th>
+                  <td><%= user.name %> </td>
+                  <td><%= user.email %> </td>
+                  <td><%= new Date(user.createdAt).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) %></td>
+                  <td><%= (user.updatedAt).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) %></td>
+                  <td id="column_update">
+                    <a href="#" data-toggle="modal" data-target="modal-user-<%= user.id %>-update">
+                      <button onclick="document.getElementById('modal-user-<%= user.id %>-update').style.display='block'">
+                        <img id="update-button" src="/images/editar.jpg">
+                      </button>
+                    </a>
+                    <!-- Modal Update -->
+                    <div class="modal" id="modal-user-<%= user.id %>-update">
+                      <div class="modal-content-update">
+                        <div class="form_update_modal">
+                          <h1 id="textTitle_update">EDITAR</h1>
+                          <div class="update">
+                            <form class="form_update" action="/users/update/<%= user.id %>" method="POST">
+                              <label for="input-email" class="label_email_update">E-mail</label>
+                              <input type="email" class="input_email_update" id="input-email-<%= user.id %>" name="email" value="<%= user.email%>" autofocus="autofocus">
+                              <label for="input-name" class="label_name_update">Nome</label>
+                              <input type="name" class="input_name_update" id="input-name-<%= user.id %>" name="name" value="<%= user.name%>" autofocus="autofocus">
+                              <label for="input-password" class="label_password_update">Senha</label>
+                              <input type="password" class="input_password_update" id="input-password-<%= user.id %>" name="password" autofocus="autofocus" placeholder="Enter Your Password">
+                              <label for="confirm-password" class="label_confirmPassword_update">Confirmar senha</label>
+                              <input type="password" class="input_confirmPassword_update" id="confirm_password-<%= user.id %>" name="confirm_password" autofocus="autofocus" placeholder="Enter Your Password">
+                              <a href="#"><button class="buttonConfirm_update" type="submit" id="buttonSubmit-<%= user.id %>">CONFIRMAR</button></a>
+                            </form>
+                          </div>
+                          <a href="#" onclick="document.getElementById('modal-user-<%= user.id %>-update').style.display='none'">Voltar</a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td id="column_delete">
+                    <a href="#" data-toggle="modal" data-target="modal-user-<%= user.id %>-delete">
+                      <button onclick="document.getElementById('modal-user-<%= user.id %>-delete').style.display='block'">
+                        <img id="delete-button" src="/images/excluir.jpg">
+                      </button>
+                    </a>
+                    <!-- Modal Delete -->
+                    <div class="modal" id="modal-user-<%= user.id %>-delete">
+                      <div class="modal-content">
+                        <form class="modal-content">
+                          <img class="img_exclude_modal" src="/images/excluirUsuario.jpg"/>
+                          <div class="info_exclude_modal">
+                            <h3 class="text_exclude_modal">Você realmente deseja excluir o usuário <%=user.name %>?</h3>
+                            <div class="clearfix">
+                              <a href="/users/delete/<%= user.id %>">
+                                <button type="button" class="deletebtn_modal">CONFIRMAR</button>
+                              </a>
+                              <button type="button" onclick="document.getElementById('modal-user-<%= user.id %>-delete').style.display='none'" class="cancelbtn_modal close">NÃO</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } %>
       </div>
       <div class="item footer">
         <h5 class="item footer">Copyrights ©</h5>
         <h5 class="item footer footer-colored"> Mind Education</h5>
       </div>
     </section>
-  </body>
+  </main>

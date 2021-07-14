@@ -1,0 +1,17 @@
+<div class="item logo">Mind Education</div>
+      <div class="item nav">
+        <div class="search">
+          <img id="btnSearch" alt="Buscar" src="/images/search.png"/>
+          <input type="text" id="search-text" placeholder="Search..."/>
+        </div>
+        <ul class="acess_login">
+          <% if (typeof user !== "undefined") { %>
+            <li class="nav-item">
+              <li id="name_user">Olá, <%= user.name %></li>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/users/logout">Logout</a>
+            </li>
+          <% } %>
+        </ul>
+      </div>

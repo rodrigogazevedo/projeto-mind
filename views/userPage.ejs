@@ -1,0 +1,75 @@
+<%- include('./partials/headDashboard') %>
+  <body>
+    <section class="grid dashboard">
+      <div class="item logo">Mind Education</div>
+      <div class="item nav nav-userPage">
+        <ul class="acess_login">
+          <% if (typeof user !== "undefined") { %>
+            <li class="nav-item">
+              <li id="name_user">Olá, <%= user.name %></li>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/users/logout">Logout</a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+      <div class="item sidenav">
+        <div class="align_box_text_menu">
+          <div class="box_text_menu">
+            <h4 id="text_menu_userPage"><%= user.email %></h4>
+          </div>
+        </div>
+        <ul class="menu">
+          <li class="nav-item">
+            <li id="text_list_menu">
+              <img src="/images/dashboard.jpg"/>
+              <a href="#" data-toggle="modal" data-target="modal-user-<%= user.id %>-update">
+                <a href="#" class="menu_update_userPage" onclick="document.getElementById('modal-user-<%= user.id %>-update').style.display='block'">
+                  Editar perfil
+                </a>
+              </a>
+              <!-- Modal Update -->
+              <div class="modal" id="modal-user-<%= user.id %>-update">
+                <div class="modal-content-update">
+                  <div class="form_update_modal">
+                    <h1 id="textTitle_update">EDITAR</h1>
+                    <div class="update">
+                      <form class="form_update" action="/users/update/<%= user.id %>" method="POST">
+                        <label for="input-email" class="label_email_update">E-mail</label>
+                        <input type="email" class="input_email_update" id="input-email-<%= user.id %>" name="email" value="<%= user.email%>" autofocus="autofocus">
+                        <label for="input-name" class="label_name_update">Nome</label>
+                        <input type="name" class="input_name_update" id="input-name-<%= user.id %>" name="name" value="<%= user.name%>" autofocus="autofocus">
+                        <label for="input-password" class="label_password_update">Senha</label>
+                        <input type="password" class="input_password_update" id="input-password-<%= user.id %>" name="password" autofocus="autofocus" placeholder="Enter Your Password">
+                        <label for="confirm-password" class="label_confirmPassword_update">Confirmar senha</label>
+                        <input type="password" class="input_confirmPassword_update" id="confirm_password-<%= user.id %>" name="confirm_password" autofocus="autofocus" placeholder="Enter Your Password">
+                        <a href="#"><button class="buttonConfirm_update" type="submit" id="buttonSubmit-<%= user.id %>">CONFIRMAR</button></a>
+                      </form>
+                    </div>
+                    <a href="#" onclick="document.getElementById('modal-user-<%= user.id %>-update').style.display='none'">Voltar</a>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </li>
+        </ul>
+      </div>
+      <div class="item content">
+        <h3 class="title titleUserPage"></h3>
+        <div class="content-pageUser">
+          <div class="contentUserPage">
+            <div class="textWelcomeUser">
+              <h5 class="item pageUser">Bem vindo,</h5>
+              <h5 class="item pageUser pageUser-colored"> <%= user.name %></h5>
+            </div>
+          </div>
+          <img class="imageUserPage" src="/images/fotoPerfilUsuario.jpg">
+        </div>
+      </div>
+      <div class="item footer">
+        <h5 class="item footer">Copyrights ©</h5>
+        <h5 class="item footer footer-colored"> Mind Education</h5>
+      </div>
+    </section>
+  </body>
