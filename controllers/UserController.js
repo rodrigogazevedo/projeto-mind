@@ -48,19 +48,19 @@ module.exports = {
 
   async update(req, res, next) {
     let id = req.params.id;
+    let currentUser = req.session.user;
     let user = await User.findByPk(id);
 
     let {name, email} = req.body;
 
     let date = dateFormat().format();
-    console.log(date);
 
     user.updatedAt = date;
 
     user.name = name;
     user.email = email;
     user.deleted = 'false';
-    if(user.password !== null) {
+    if(user.password !== "") {
       let password = bcrypt.hashSync(req.body.password, 10);
       user.password = password;
       user.confirm_password = password;
@@ -81,7 +81,13 @@ module.exports = {
       },
     });
 
-    res.render('administration', { users, user: req.session.user, updated: true });
+    user = await User.findOne({ where: { email } });
+
+    if(currentUser.admin == true) {
+      res.render('administration', { users, user: req.session.user, updated: true });
+    } else {
+      res.render('userPage', { user, user: req.session.user, updated: true });
+    }
   },
 
   login(req, res, next) {
@@ -105,12 +111,17 @@ module.exports = {
 
     req.session.user = user;
 
-    //users = module.exports.list();
-
     if(user.admin == true) {
       let users = await User.findAll({ 
         where: {
-          admin : 'false'
+          [Sequelize.Op.and] : [
+            {
+              deleted : 'false'
+            },
+            {
+              admin : 'false'
+            }
+          ]
         },
       });
 
@@ -125,5 +136,9 @@ module.exports = {
   logout(req, res, next) {
     req.session.destroy();
     res.redirect('/');
+  },
+
+  forgotPassword(req, res, next) {
+    res.render('forgotPassword');
   }
 };

@@ -56,16 +56,18 @@
         </ul>
       </div>
       <div class="item content">
-        <h3 class="title titleUserPage"></h3>
-        <div class="content-pageUser">
-          <div class="contentUserPage">
-            <div class="textWelcomeUser">
-              <h5 class="item pageUser">Bem vindo,</h5>
-              <h5 class="item pageUser pageUser-colored"> <%= user.name %></h5>
+        <% if (user.length !== 0) { %>
+          <h3 class="title titleUserPage"></h3>
+          <div class="content-pageUser">
+            <div class="contentUserPage">
+              <div class="textWelcomeUser">
+                <h5 class="item pageUser">Bem vindo,</h5>
+                <h5 class="item pageUser pageUser-colored"> <%= user.name %></h5>
+              </div>
             </div>
+            <img class="imageUserPage" src="/images/fotoPerfilUsuario.jpg">
           </div>
-          <img class="imageUserPage" src="/images/fotoPerfilUsuario.jpg">
-        </div>
+        <% } %>
       </div>
       <div class="item footer">
         <h5 class="item footer">Copyrights ©</h5>

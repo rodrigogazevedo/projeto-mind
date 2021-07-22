@@ -181,3 +181,48 @@ a {
   width: 308px;
   margin: 45px 0 0 0;
 }
+
+.label_email_forgotPassword {
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 17px;
+  opacity: 0.5;
+  margin-top: 100px;
+}
+
+.input_email_forgotPassword {
+  width: 250px;
+  height: 40px;
+  border-width: 1px;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: solid;
+  border-left-style: none;
+  margin: 10px 0 90px 0;
+  font-weight: 600;
+  font-size: 19.0481px;
+  line-height: 26px;
+  color: #03014c;
+  opacity: 0.5;
+}
+
+.forgotPassword_new {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 0;
+  height: 400px;
+  justify-content: space-between;
+}
+
+.text_forgotPassword {
+  font-size: 38px;
+  line-height: 65px;
+  color: #03014c;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 308px;
+  margin: 45px 0 0 0;
+}

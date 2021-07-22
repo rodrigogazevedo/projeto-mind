@@ -6,7 +6,7 @@ const UserController = require('../controllers/UserController');
 router.get('/register', UserController.create);
 router.post('/register', UserController.save);
 
-
+router.get('/forgotPassword', UserController.forgotPassword);
 
 router.get('/authenticate', UserController.login);
 router.post('/authenticate', UserController.authenticate);
